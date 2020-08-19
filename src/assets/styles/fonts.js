@@ -12,6 +12,7 @@ const fonts = createGlobalStyle`
   font-style: normal;
   font-display: fallback;
 }
+
 @font-face {
   font-family: 'Montserrat';
   src: url(${MontserratMediumttf}) format('truetype');
@@ -19,13 +20,15 @@ const fonts = createGlobalStyle`
   font-style: normal;
   font-display: fallback;
 }
+
 @font-face {
   font-family: 'Montserrat';
-  src: url(${MontserratSemiboldttf} format('truetype');
+  src: url(${MontserratSemiboldttf}) format('truetype');
   font-weight: 600;
   font-style: normal;
   font-display: fallback;
 }
+
 `;
 
 export default fonts;

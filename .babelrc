@@ -17,7 +17,7 @@
           "@components": "./src/components",
           "@assets": "./src/assets",
           "@modules": "./src/modules",
-          "@views": "./src/views",
+          "@pages": "./src/pages",
           "@api": "./src/api",
           "@src": "./src"
         }

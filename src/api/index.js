@@ -1,4 +1,5 @@
 import axios from 'axios';
+import cookie from 'js-cookie';
 
 class API {
   constructor() {
@@ -18,69 +19,29 @@ class API {
     return process.env.REACT_APP_API_URL;
   }
 
-  static handleError(error) {
-    const { response } = error;
-    if (!response) return;
-
-    if (response.status) {
-      // eslint-disable-next-line
-      console.error(response.status);
-    }
-  }
-
   setBearer() {
+    this.token = cookie.get(this.authBearerKey);
     this.service.defaults.headers.common.Authorization = this.token ? `Bearer ${this.token}` : '';
   }
 
-  readCredentials() {
-    this.token = localStorage.getItem(``) || '';
-  }
-
-  resetCredentials() {
-    this.token = '';
-    localStorage.setItem(this.authBearerKey, '');
-  }
-
-  setCredentials(data) {
-    const { token } = data;
-    localStorage.setItem(this.authBearerKey, token);
-    this.token = token;
-    return this.setBearer();
-  }
-
   async get(resource, params) {
-    return this.service.get(resource, params).catch(error => {
-      API.handleError(error);
-      throw new Error(`ApiService ${error}`);
-    });
+    return this.service.get(resource, params);
   }
 
   async post(resource, params) {
-    return this.service.post(resource, params).catch(error => {
-      API.handleError(error);
-      throw new Error(`ApiService ${error}`);
-    });
+    return this.service.post(resource, params);
   }
 
   async put(resource, params) {
-    return this.service.put(resource, params).catch(error => {
-      API.handleError(error);
-      throw new Error(`ApiService ${error}`);
-    });
+    return this.service.put(resource, params);
   }
 
   async delete(resource) {
-    return this.service.delete(resource).catch(error => {
-      API.handleError(error);
-      throw new Error(`ApiService ${error}`);
-    });
+    return this.service.delete(resource);
   }
 
   async patch(resource, params) {
-    return this.service.patch(resource, params).catch(error => {
-      API.handleError(error);
-      throw new Error(`ApiService ${error}`);
-    });
+    return this.service.patch(resource, params)
   }
 }
 
