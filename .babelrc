@@ -1,0 +1,36 @@
+{
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    [
+      "styled-components"
+    ],
+    [
+      "module-resolver",
+      {
+        "root": [
+          "."
+        ],
+        "alias": {
+          "@components": "./src/components",
+          "@assets": "./src/assets",
+          "@modules": "./src/modules",
+          "@views": "./src/views",
+          "@api": "./src/api",
+          "@src": "./src"
+        }
+      }
+    ],
+    [
+      "transform-class-properties"
+    ],
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "regenerator": true
+      }
+    ]
+  ]
+}
