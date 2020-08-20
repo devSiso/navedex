@@ -1,18 +1,18 @@
 
 import cookie from 'js-cookie';
 
+const tokenName = `${process.env.REACT_APP_PROJECT_NAME}-token`;
+
 export const login = token => {
-  return cookie.set(`${process.env.REACT_APP_PROJECT_NAME}-token`, token, { expires: 1 });
+  return cookie.set(tokenName, token, { expires: 1 });
 };
 
 export const isLoggedIn = () => {
-  return !!cookie.get(`${process.env.REACT_APP_PROJECT_NAME}-token`);
+  return !!cookie.get(tokenName);
 }
 
 export const logout = () => {
-  cookie.remove(`${process.env.REACT_APP_PROJECT_NAME}-token`);
-
-  // to support logging out from all windows
+  cookie.remove(tokenName);
   window.localStorage.setItem('logout', Date.now());
   window.location.reload();
 };

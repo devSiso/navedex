@@ -5,14 +5,13 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-
 import Login from '@pages/Login'
 import Home from '@pages/Home'
 import NotFound from '@pages/NotFound'
 import PrivateRoute from '@src/Router/PrivateRouter'
 
-
 const RouterWrapper = () => {
+
   return (
     <Router>
       <Switch>

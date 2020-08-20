@@ -4,6 +4,7 @@ import Input from '@components/atoms/Input'
 import Brand from '@components/atoms/Brand'
 import Button from '@components/molecules/Button'
 import AuthService from '@api/services/auth';
+import Page from '@pages/Page'
 import { login, isLoggedIn } from '@src/utils/auth'
 import { Link, useHistory } from "react-router-dom";
 import { LoginPage, FormWrapper } from './styles'
@@ -14,7 +15,7 @@ const Login = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if(isLoggedIn()) {
+    if (isLoggedIn()) {
       history.push('/home');
     }
   }, [])
@@ -25,7 +26,7 @@ const Login = () => {
 
     try {
       res = await AuthService.signIn(formData);
-    } catch(e) {
+    } catch (e) {
       setLoginError(true);
     } finally {
       setLoading(false);
@@ -58,41 +59,43 @@ const Login = () => {
   }
 
   return !isLoggedIn() && (
-    <LoginPage>
-      <FormWrapper>
-        <Link to="/">
-          <Brand size="large" />
-        </Link>
-        <Form onSubmit={onSubmit}>
-          <Input
-            type="email"
-            name="email"
-            rules={loginFormRules.mail}
-            className="input__email"
-            placeholder="E-mail"
-            label="E-mail"
-            title="email"
-          />
-          <Input
-            label="Senha"
-            placeholder="Senha"
-            type="password"
-            name="password"
-            title="password"
-            marginTop="32px"
-            rules={loginFormRules.password}
-          />
-          <Button type="submit" value="Entrar" title="Entrar" loading={loading} />
-        </Form>
-        {
-          loginError && (
-            <span className="error-span" style={{marginTop: '16px'}}>
-              Email ou senha inválidos
-            </span>
-          )
-        }
-      </FormWrapper>
-    </LoginPage>
+    <Page>
+      <LoginPage>
+        <FormWrapper>
+          <Link to="/">
+            <Brand size="large" />
+          </Link>
+          <Form onSubmit={onSubmit}>
+            <Input
+              type="email"
+              name="email"
+              rules={loginFormRules.mail}
+              className="input__email"
+              placeholder="E-mail"
+              label="E-mail"
+              title="email"
+            />
+            <Input
+              label="Senha"
+              placeholder="Senha"
+              type="password"
+              name="password"
+              title="password"
+              marginTop="32px"
+              rules={loginFormRules.password}
+            />
+            <Button type="submit" value="Entrar" title="Entrar" loading={loading} />
+          </Form>
+          {
+            loginError && (
+              <span className="error-span" style={{ marginTop: '16px' }}>
+                Email ou senha inválidos
+              </span>
+            )
+          }
+        </FormWrapper>
+      </LoginPage>
+    </Page>
   )
 }
 
