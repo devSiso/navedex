@@ -20,7 +20,7 @@ const Modal = () => {
       return false;
     };
 
-    return dispatch({ type: 'SET_MODAL_CLOSED' });
+    return dispatch({ type: 'SET_MODAL_CLOSED'});
   };
 
   return (

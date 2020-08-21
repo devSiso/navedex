@@ -22,10 +22,10 @@ export const DefaultButton = styled.button`
   justify-content: center;
   text-align: center;
   color: ${props => themes[props.theme].color} ;
-  padding: 8px;
+  padding: ${props => props.icon ? '0px' : '8px'};
   background: ${props => themes[props.theme].background};
   outline: none;
-  border: 1px solid ${props => themes[props.theme].background};
+  border: 1px solid ${props => props.bordered ? BlackTexts : themes[props.theme].background};
   cursor: pointer;
   transition: 0.2s;
   pointer-events: ${props => props.disabled ? 'none' : 'auto'};
@@ -62,11 +62,8 @@ export const InlineButton = styled(DefaultButton)`
 export const IconsWrapper = styled.span`
   display: inline-block;
   font-size: 24px;
-  margin-left: 4px;
-  transform: translateY(1px);
-
   span {
-    line-height: 12px;
+    color: ${BlackTexts};
   }
 `;
 

@@ -5,8 +5,7 @@ import AppContext from '@context/appContext';
 import {
   DefaultModalContent,
   Title,
-  Body,
-} from './styles';
+} from '../../styles';
 
 /**
  * Example Modal
@@ -21,9 +20,6 @@ export const ModalExample = () => {
   return (
     <DefaultModalContent isOpened={state.modal.isOpened}>
       <Title>Experience</Title>
-      <Body>
-        <h2>modal</h2>
-      </Body>
     </DefaultModalContent>
   );
 };

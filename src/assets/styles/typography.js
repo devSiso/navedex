@@ -1,15 +1,15 @@
-export const Title = `
+export const BigTitle = `
 font-family: 'Montserrat', sans-serif;
 font-weight: 600;
-font-size: 24px;
-line-height: 32px;
+font-size: 40px;
+line-height: 120%;
 `;
 
 export const Paragraph = `
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   font-size: 16px;
-  line-height: 20px;
+  line-height: 150%;
 `;
 
 export const LabelTp = `
@@ -17,6 +17,13 @@ export const LabelTp = `
  font-weight: 600;
  font-size: 14px;
  line-height: 129%;
+`;
+
+export const cardTitle = `
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 112%;
 `;
 
 export const InputTp = `
@@ -32,3 +39,10 @@ export const ButtonTp = `
   font-size: 14px;
   line-height: 171%;
 `;
+
+export const modalTitle = `
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 150%;
+`

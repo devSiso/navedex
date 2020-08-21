@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react'
+import { Link, useHistory } from "react-router-dom";
+
+import AuthService from '@api/services/auth';
+import { login, isLoggedIn } from '@src/utils/auth'
+
 import Form from '@components/organisms/Form'
 import Input from '@components/atoms/Input'
 import Brand from '@components/atoms/Brand'
 import Button from '@components/molecules/Button'
-import AuthService from '@api/services/auth';
 import Page from '@pages/Page'
-import { login, isLoggedIn } from '@src/utils/auth'
-import { Link, useHistory } from "react-router-dom";
+
 import { LoginPage, FormWrapper } from './styles'
 
 const Login = () => {
@@ -26,6 +29,7 @@ const Login = () => {
 
     try {
       res = await AuthService.signIn(formData);
+      await login(res.data.token);
     } catch (e) {
       setLoginError(true);
     } finally {
@@ -33,7 +37,6 @@ const Login = () => {
     }
 
     if (res && res.status === 200) {
-      await login(res.data.token);
       history.push('/home');
     }
   }

@@ -25,22 +25,27 @@ class API {
   }
 
   async get(resource, params) {
+    this.setBearer();
     return this.service.get(resource, params);
   }
 
   async post(resource, params) {
+    this.setBearer();
     return this.service.post(resource, params);
   }
 
   async put(resource, params) {
+    this.setBearer();
     return this.service.put(resource, params);
   }
 
   async delete(resource) {
+    this.setBearer();
     return this.service.delete(resource);
   }
 
   async patch(resource, params) {
+    this.setBearer();
     return this.service.patch(resource, params)
   }
 }

@@ -6,7 +6,7 @@ import Loader from '@components/atoms/Loader';
 
 import { Label, DefaultButton, IconsWrapper, InlineButton } from './styles'
 
-const Button = ({ onClick, theme, icon, loading, disabled, inline, value, ...attrs}) => {
+const Button = ({ bordered, onClick, theme, icon, loading, disabled, inline, value, ...attrs}) => {
   const ButtonWrapper = inline ? InlineButton : DefaultButton;
   return (
     <ButtonWrapper
@@ -15,9 +15,11 @@ const Button = ({ onClick, theme, icon, loading, disabled, inline, value, ...att
       loading={loading ? 1 : 0}
       disabled={disabled ? 1 : 0}
       value={value}
+      icon={icon}
+      bordered={bordered}
       {...attrs}
     >
-      <Label>{value}</Label>
+      { !icon && <Label>{value}</Label> }
       {icon && (
         <IconsWrapper>
           <Icon name={icon} />
@@ -36,6 +38,7 @@ Button.propTypes = {
   loading: PropTypes.bool,
   disabled: PropTypes.bool,
   inline: PropTypes.bool,
+  bordered: PropTypes.bool,
 };
 
 Button.defaultProps = {
@@ -46,6 +49,7 @@ Button.defaultProps = {
   loading: false,
   inline: false,
   disabled: false,
+  bordered: false
 };
 
 export default Button;
