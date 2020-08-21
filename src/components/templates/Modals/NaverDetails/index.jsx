@@ -1,10 +1,13 @@
 import React, { useEffect, useContext, useState } from 'react'
 import PropTypes from 'prop-types'
-import { useHistory } from 'react-router-dom'
+import LoadingOverlay from 'react-loading-overlay';
+import { useHistory, Link} from 'react-router-dom'
 
 import AppContext from '@context/appContext';
 
 import NaversService from '@api/services/navers';
+
+import { getAge, getPreciseDiff } from '@src/utils/date'
 
 import Figure from '@components/atoms/Figure'
 import Button from '@components/molecules/Button'
@@ -37,69 +40,96 @@ const NaverDetailsModal = ({ id }) => {
     return dispatch({ type: 'SET_MODAL_OPENED', component: DeleteNaver, props: { id: naver.id } });
   }
 
-  function goToEdit() {
-    closeModal();
-    history.push(`/naver/${id}`)
-    // return window.location.pathname = `/naver/${id}`;
+  async function fetchNaver() {
+    setLoading(true);
+
+    try {
+      const { data } = await NaversService.getNaver(id);
+      setNaver(data);
+    } catch (e) {
+      // eslint-disable-next-line
+      console.error(e)
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
-    async function fetchNaver() {
-      setLoading(true);
-
-      try {
-        const { data } = await NaversService.getNaver(id);
-        setNaver(data);
-      } catch (e) {
-        // eslint-disable-next-line
-        console.error(e)
-      } finally {
-        setLoading(false);
-      }
+    if (!state.modal.isOpened) {
+      setNaver({});
+      history.push('/home')
+    } else {
+      fetchNaver();
     }
-    console.log(loading)
-    fetchNaver();
-  }, [])
+  }, [state.modal.isOpened]);
 
   return (
     <DefaultModalContent size="large" isOpened={state.modal.isOpened} noPadding>
-      <CloseContainer>
-        <Button icon="close" theme="light" onClick={closeModal} />
-      </CloseContainer>
-      {naver && (
+      <LoadingOverlay
+        active={loading}
+        spinner
+        styles={{
+          overlay: (base) => ({
+            ...base,
+            background: 'rgba(255, 255, 255, 1)'
+          }),
+          spinner: (base) => ({
+            ...base,
+            width: '80px',
+            '& svg circle': {
+              stroke: 'rgba(0, 0, 0, 1)'
+            }
+          })
+        }}
+      >
+        <CloseContainer>
+          <Button icon="close" theme="light" onClick={closeModal} />
+        </CloseContainer>
         <DetailsWrapper>
-          <div className="figure-wrapper">
-            <Figure
-              src={naver.url || ''}
-              alt={`Picture of ${naver.name}`}
-            />
-          </div>
-          <DetailsInfo>
-            <header>
-              <Title>{naver.name}</Title>
-              <p>{naver.job_role}</p>
-            </header>
-            <ul className="naver-informations">
-              <li>
-                <strong>Idade</strong>
-                <span>{naver.birthdate}</span>
-              </li>
-              <li>
-                <strong>Tempo de empresa</strong>
-                <span>{naver.admission_date}</span>
-              </li>
-              <li>
-                <strong>Projetos que participou</strong>
-                <span>{naver.project}</span>
-              </li>
-            </ul>
-            <ActionsWrapper>
-              <Button theme="light" icon="delete" onClick={openDeleteModal} />
-              <Button theme="light" icon="edit" onClick={goToEdit} />
-            </ActionsWrapper>
-          </DetailsInfo>
+          {(naver && !loading) && (
+            <>
+              <div className="figure-wrapper">
+                <Figure
+                  src={naver.url || ''}
+                  alt={`Picture of ${naver.name}`}
+                />
+              </div>
+              <DetailsInfo>
+                <header>
+                  <Title>{naver.name}</Title>
+                  <p>{naver.job_role}</p>
+                </header>
+                <ul className="naver-informations">
+                  {naver.birthdate && (
+                    <li>
+                      <strong>Idade</strong>
+                      <span>{`${getAge(naver.birthdate)} anos`}</span>
+                    </li>
+                  )}
+                  {naver.admission_date && (
+                    <li>
+                      <strong>Tempo de empresa</strong>
+                      <span>{getPreciseDiff(naver.admission_date)}</span>
+                    </li>
+                  )}
+                  {naver.project && (
+                    <li>
+                      <strong>Projetos que participou</strong>
+                      <span>{naver.project}</span>
+                    </li>
+                  )}
+                </ul>
+                <ActionsWrapper>
+                  <Button theme="light" icon="delete" onClick={openDeleteModal} />
+                  <Link to={`/naver/${id}`}>
+                    <Button theme="light" icon="edit" onClick={closeModal} />
+                  </Link>
+                </ActionsWrapper>
+              </DetailsInfo>
+            </>
+          )}
         </DetailsWrapper>
-      )}
+      </LoadingOverlay>
     </DefaultModalContent>
   );
 };

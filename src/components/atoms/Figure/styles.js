@@ -10,8 +10,9 @@ export const StyledFigure = styled.figure`
   img {
     display: block;
     width: 100%;
-    height: 100%;
+    height: 24vw;
     outline: none;
+    object-fit: cover;
   }
 
   figcaption {

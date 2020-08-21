@@ -19,6 +19,12 @@ const reducer = (state = initialState, action) => {
         navers: state.navers.filter(naver => naver.id !== action.id)
       }
 
+    case 'ADD_NEW_NAVER':
+      return {
+        ...state,
+        navers: state.navers.push(action.data)
+      }
+
     // case 'UPTADE_NAVER':
     //   return {
     //     ...state,
@@ -34,14 +40,6 @@ const reducer = (state = initialState, action) => {
     //     })
     //   }
 
-    // case 'DELETE_NAVER':
-    //   return {
-    //     ...state,
-    //     modal: {
-    //       ...state.modal,
-    //       isOpened: false,
-    //     },
-    //   };
     default:
       return state;
   }

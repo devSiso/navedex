@@ -4,6 +4,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 import PrivateRoute from '@src/Router/PrivateRouter'
 
@@ -12,7 +13,7 @@ import Home from '@pages/Home'
 import Naver from '@pages/Naver'
 import NotFound from '@pages/NotFound'
 
-const RouterWrapper = () => {
+const RouterWrapper = ({ children }) => {
   return (
     <Router>
       <Switch>
@@ -22,8 +23,15 @@ const RouterWrapper = () => {
         <PrivateRoute exact path="/naver/:naverID" component={Naver} />
         <Route path="*" component={NotFound} />
       </Switch>
+      {children}
     </Router>
   )
 }
 
+RouterWrapper.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element, PropTypes.node]),
+}
+RouterWrapper.defaultProps = {
+  children: undefined,
+}
 export default RouterWrapper;

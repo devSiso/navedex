@@ -70,6 +70,9 @@ export const ActionsWrapper = styled.div`
 
   button {
     max-width: 24px;
+    &:first-child {
+      margin-right: 8px;
+    }
   }
 
   a {

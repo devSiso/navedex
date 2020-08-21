@@ -13,6 +13,13 @@ export const Card = styled.div`
     text-decoration: none;
     flex-wrap: wrap;
 
+    figure {
+      img {
+        min-width: 280px;
+        min-height: 280px;
+      }
+    }
+
     .naver-infos {
       display: flex;
       flex-flow: column wrap;
@@ -30,6 +37,15 @@ export const Card = styled.div`
 
     }
   }
+`;
+
+export const Image = styled.div`
+  background-size: contain;
+  width: 320px;
+  height: 320px;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: block;
 `;
 
 export const ActionsWrapper = styled.div`

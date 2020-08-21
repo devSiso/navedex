@@ -3,8 +3,6 @@ import { Paragraph } from './typography';
 import { errorMessage, BlackTexts } from './colors';
 
 const base = createGlobalStyle`
-@import 'swiper/swiper.scss';
-
 body {
   ${Paragraph}
   color: ${BlackTexts};
@@ -22,6 +20,10 @@ body {
     margin-left: 12px;
     font-weight: bold;
     font-size: 18px;
+
+    &:first-child {
+      margin-left: 0;
+    }
   }
 
   .swiper-pagination-bullet {

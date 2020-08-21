@@ -57,7 +57,7 @@ const Home = () => {
   }
 
   return (
-    <Page navVisible loading={loading}>
+    <Page navVisible>
       <Header>
         <h2>Navers</h2>
         <Button value="Adicionar Naver" theme="dark" onClick={goToNaverPage} />
@@ -102,7 +102,7 @@ const Home = () => {
           ) : (
             <NotFound>
               <h2>
-                {loading ? "Procurando por navers..." : "Navers não encontrados!"}
+                {loading ? "Procurando por navers..." : "Nenhum naver foi registrado!"}
               </h2>
             </NotFound>
           )

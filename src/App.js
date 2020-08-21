@@ -5,15 +5,15 @@ import { AppProvider } from '@context/appContext';
 import { NaversProvider } from '@context/naversContext'
 import Modal from '@components/organisms/Modal';
 
-
 const App = () => {
   return (
     <>
       <GlobalStyles />
       <AppProvider>
         <NaversProvider>
-          <RouterWrapper />
-          <Modal />
+          <RouterWrapper>
+            <Modal />
+          </RouterWrapper>
         </NaversProvider>
       </AppProvider>
     </ >

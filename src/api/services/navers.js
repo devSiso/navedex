@@ -16,6 +16,14 @@ class NaversService extends API {
   async deleteNaver(id) {
     return this.delete(`/navers/${id}`);
   }
+
+  async updateNaver(id, data) {
+    return this.put(`/navers/${id}`, data);
+  }
+
+  async addNaver(data) {
+    return this.post('/navers', data);
+  }
 }
 
 export default new NaversService();

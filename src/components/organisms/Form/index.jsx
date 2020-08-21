@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from "react-hook-form"
 import PropTypes from 'prop-types'
 import { ErrorMessage } from '@hookform/error-message';
@@ -9,8 +9,14 @@ const Form = ({ defaultValues, children, onSubmit }) => {
     control,
     register,
     errors,
-    handleSubmit
+    handleSubmit,
+    setValue,
+    reset,
   } = useForm({ defaultValues, criteriaMode: 'all' });
+
+  useEffect(() => {
+    setValue({ defaultValues });
+  }, [defaultValues])
 
   const createElementProps = (controlled) => {
     if (controlled) {
@@ -23,8 +29,13 @@ const Form = ({ defaultValues, children, onSubmit }) => {
     }
   }
 
+  function submitter(data, e) {
+    onSubmit(data, e);
+    reset({});
+  }
+
   return (
-    <FormWrapper onSubmit={handleSubmit(onSubmit)}>
+    <FormWrapper onSubmit={handleSubmit(submitter)}>
       {React.Children.map(children, child => {
         const { controlled, className } = child.props;
 
@@ -36,35 +47,36 @@ const Form = ({ defaultValues, children, onSubmit }) => {
           return errors[child.props.name] && `--error-${errors[child.props.name].type}`
         }
 
+        const errorComponent = (errs, name) => (
+          <ErrorMessage
+            errors={errs}
+            name={name}
+            render={({ message }) => <span className="error-span">{message && message}</span>}
+          />
+        )
+
         return child.props.name
           ? (
-            <>
+            <div>
               {React.createElement(child.type, {
                 ...{
                   ...child.props,
                   ...createElementProps(controlled),
                   className: getClassName(),
-                  key: child.props.name
+                  key: child.props.name,
                 },
-              })}
-              { errors && (
-                <ErrorMessage
-                  errors={errors}
-                  name={child.props.name}
-                  render={({ message }) => <span className="error-span">{message && message}</span>}
-                />
+              }
               )}
-            </>
-            // TODO ^ ErrorMessage middleware
-            // Think about noErrorable inputs
-          )
-          : child;
+              {errorComponent(errors, child.props.name)}
+            </div>
+          ) : child;
       })}
     </FormWrapper>
   );
 }
 
 Form.propTypes = {
+
   defaultValues: PropTypes.objectOf(PropTypes.any),
   // eslint-disable-next-line
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element]).isRequired,

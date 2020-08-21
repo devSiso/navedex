@@ -7,7 +7,7 @@ import NaversContext from '@context/naversContext'
 import NaversService from '@api/services/navers'
 import Button from '@components/molecules/Button'
 
-import SuccessfullyDeleted from '../SuccessfullyDeleted'
+import SuccessModal from '../Success'
 
 import {
   DefaultModalContent,
@@ -31,7 +31,7 @@ export const DeleteNaverModal = ({ id }) => {
 
   function openSuccessModal() {
     closeModal();
-    return dispatch({ type: 'SET_MODAL_OPENED', component: SuccessfullyDeleted });
+    return dispatch({ type: 'SET_MODAL_OPENED', component: SuccessModal, props: { title: "Naver excluído", text: "Naver excluído com sucesso!" } });
   }
 
   async function deleteNaver() {
