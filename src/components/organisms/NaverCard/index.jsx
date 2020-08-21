@@ -9,6 +9,7 @@ import Button from '@components/molecules/Button'
 import AppContext from '@context/appContext'
 
 import DeleteNaver from '@components/templates/Modals/DeleteNaver'
+import NaverDetails from '@components/templates/Modals/NaverDetails'
 
 import { Card, ActionsWrapper } from './styles'
 
@@ -16,12 +17,16 @@ const NaverCard = ({ id, imgSrc, name, occupation }) => {
   const { dispatch } = useContext(AppContext);
 
   function openDeleteModal() {
-    dispatch({ type: 'SET_MODAL_OPENED', component: DeleteNaver, props: { id } });
+    return dispatch({ type: 'SET_MODAL_OPENED', component: DeleteNaver, props: { id } });
+  }
+
+  function openDetails() {
+    return dispatch({ type: 'SET_MODAL_OPENED', component: NaverDetails, props: { id } });
   }
 
   return (
     <Card>
-      <Link to={`/home#${id}`} className="link-wrapper">
+      <Link to={`/home#${id}`} className="link-wrapper" onClick={openDetails}>
         <Figure
           src={imgSrc}
           alt={`Picture of ${name}`}

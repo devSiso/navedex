@@ -6,12 +6,14 @@ import 'swiper/swiper-bundle.min.css';
 
 import NaversService from '@api/services/navers'
 
+import AppContext from '@context/appContext'
 import NaversContext from '@context/naversContext';
 
 import Page from '@pages/Page'
 import Button from '@components/molecules/Button'
 import NaverCard from '@components/organisms/NaverCard'
 
+import NaverDetails from '@components/templates/Modals/NaverDetails'
 
 import { Header, NotFound } from './styles';
 
@@ -20,11 +22,17 @@ SwiperCore.use([Pagination]);
 const Home = () => {
   const history = useHistory();
   const { dispatch: NaversDispatch, state: NaversState } = useContext(NaversContext);
+  const { dispatch } = useContext(AppContext);
   const [loading, setLoading] = useState(false);
+
+  function openDetailsModal(id) {
+    return dispatch({ type: 'SET_MODAL_OPENED', component: NaverDetails, props: { id } });
+  }
 
   useEffect(() => {
     async function fetchNavers() {
       setLoading(true);
+
       try {
         const { data } = await NaversService.getNavers();
         NaversDispatch({ type: 'SET_NAVERS', navers: data });
@@ -37,6 +45,11 @@ const Home = () => {
     }
 
     fetchNavers();
+
+    if (history.location.hash) {
+      const id = history.location.hash.replace('#', '');
+      openDetailsModal(id);
+    }
   }, [])
 
   async function goToNaverPage() {

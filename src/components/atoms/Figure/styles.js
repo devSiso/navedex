@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const StyledFigure = styled.figure`
-  width: 100%
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -11,6 +11,7 @@ export const StyledFigure = styled.figure`
     display: block;
     width: 100%;
     height: 100%;
+    outline: none;
   }
 
   figcaption {

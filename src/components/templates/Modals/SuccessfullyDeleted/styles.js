@@ -12,10 +12,12 @@ export const Body = styled.div`
 `;
 
 export const CloseContainer = styled.div`
-  max-width: 30px;
+  max-width: 14px;
   position: absolute;
   top: 29px;
   right: 29px;
+  cursor: pointer;
+  z-index: 90;
 `;
 
 export default Body;
