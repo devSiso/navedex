@@ -40,7 +40,7 @@ module.exports = {
     },
     {
       name: 'Routing',
-      components: 'src/Router/**/*.jsx',
+      components: 'src/Router/PrivateRouter/*.jsx',
       content: 'docs/routing.md',
     },
   ],
