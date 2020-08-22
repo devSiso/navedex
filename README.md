@@ -28,6 +28,11 @@ docker-compose up --build
 Then go to [http://localhost:3000](http://localhost:3000).
 The browser automatically updates as you edit files.
 
+You can use the following credentials to log in.
+
+**Email: matheus.cruz@nave.rs**
+**Password: matheuscruz**
+
 ## Development Documentation
 
 Start documentations server:
