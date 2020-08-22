@@ -1,4 +1,4 @@
-<h3> Loader examples: </h3>
+<h3>Example: </h3>
 
 ```js
 <Loader size="large" />

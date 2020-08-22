@@ -29,10 +29,10 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "react-app-rewired test --env=jsdom",
     "lint:fix": "eslint --ext .js,.jsx src --fix && pretty-quick --staged",
     "lint": "eslint --ext .js,.jsx src",
-    "eject": "react-scripts eject"
+    "docs:build": "npx styleguidist build",
+    "docs:serve": "npx styleguidist server"
   },
   "browserslist": {
     "production": [
@@ -60,6 +60,13 @@
     "eslint-plugin-import": "^2.22.0",
     "husky": "^4.2.5",
     "prettier": "^2.0.5",
-    "react-app-rewired": "^2.1.6"
+    "pretty-quick": "^3.0.0",
+    "react-app-rewired": "^2.1.6",
+    "react-styleguidist": "^11.0.8"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint:fix"
+    }
   }
 }
