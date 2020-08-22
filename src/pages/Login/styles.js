@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { InputBorder } from '@assets/styles/colors';
+import { goUpAndFade } from '@assets/styles/animations';
 
 export const LoginPage = styled.div`
   display: flex;
@@ -18,6 +19,7 @@ export const FormWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  animation: ${goUpAndFade} 1s;
 
   form {
     margin-top: 40px;

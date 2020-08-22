@@ -37,7 +37,6 @@ export const getPreciseDiff = (admissionDate) => {
 export const convertISOToDate = (ISO) => {
   const isoDate = new Date(ISO);
   const formatted = `${isoDate.getDate()}/${(isoDate.getMonth() + 1)}/${isoDate.getFullYear()}`;
-  console.log(formatted, '<<< formatted')
   return formatted
 }
 

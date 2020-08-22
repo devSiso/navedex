@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 import { modalTitle } from '@assets/styles/typography';
+import { goUpAndFade } from '@assets/styles/animations'
 
 export const NaverPageWrapper = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
   align-items: center;
+  animation: ${goUpAndFade} .8s ;
 
   .content {
     max-width: 600px;

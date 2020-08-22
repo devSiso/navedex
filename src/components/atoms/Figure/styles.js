@@ -10,7 +10,8 @@ export const StyledFigure = styled.figure`
   img {
     display: block;
     width: 100%;
-    height: 24vw;
+    height: ${props => props.insideModal ? '100%': '24vw'};
+    max-height: ${props => props.insideModal && '504px'};
     outline: none;
     object-fit: cover;
   }

@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react'
 import PropTypes from 'prop-types'
 import LoadingOverlay from 'react-loading-overlay';
-import { useHistory, Link} from 'react-router-dom'
+import { useHistory, } from 'react-router-dom'
 
 import AppContext from '@context/appContext';
 
@@ -54,10 +54,18 @@ const NaverDetailsModal = ({ id }) => {
     }
   }
 
+  function goToEdit() {
+    history.push(`/naver/${id}`);
+    closeModal();
+  }
+
   useEffect(() => {
     if (!state.modal.isOpened) {
       setNaver({});
-      history.push('/home')
+
+      if (history.location.pathname === '/home') {
+        history.push('/home');
+      }
     } else {
       fetchNaver();
     }
@@ -82,9 +90,11 @@ const NaverDetailsModal = ({ id }) => {
           })
         }}
       >
-        <CloseContainer>
-          <Button icon="close" theme="light" onClick={closeModal} />
-        </CloseContainer>
+        {!loading && (
+          <CloseContainer>
+            <Button icon="close" theme="light" onClick={closeModal} />
+          </CloseContainer>
+        )}
         <DetailsWrapper>
           {(naver && !loading) && (
             <>
@@ -92,6 +102,7 @@ const NaverDetailsModal = ({ id }) => {
                 <Figure
                   src={naver.url || ''}
                   alt={`Picture of ${naver.name}`}
+                  insideModal
                 />
               </div>
               <DetailsInfo>
@@ -121,9 +132,7 @@ const NaverDetailsModal = ({ id }) => {
                 </ul>
                 <ActionsWrapper>
                   <Button theme="light" icon="delete" onClick={openDeleteModal} />
-                  <Link to={`/naver/${id}`}>
-                    <Button theme="light" icon="edit" onClick={closeModal} />
-                  </Link>
+                  <Button theme="light" icon="edit" onClick={goToEdit} />
                 </ActionsWrapper>
               </DetailsInfo>
             </>

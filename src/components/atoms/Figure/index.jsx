@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import { StyledFigure } from './styles';
 
-const Figure = ({ src, alt, figcaption, ...props}) => (
-  <StyledFigure {...props}>
+const Figure = ({ insideModal, src, alt, figcaption, ...props}) => (
+  <StyledFigure {...props} insideModal={insideModal}>
     <img src={src} alt={alt} />
     { figcaption && (
       <figcaption>
@@ -16,11 +16,13 @@ const Figure = ({ src, alt, figcaption, ...props}) => (
 Figure.propTypes = {
   src: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
-  figcaption: PropTypes.string
+  figcaption: PropTypes.string,
+  insideModal: PropTypes.bool
 }
 
 Figure.defaultProps = {
-  figcaption: undefined
+  figcaption: undefined,
+  insideModal: false
 }
 
 export default Figure;

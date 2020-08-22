@@ -26,6 +26,7 @@ export const DeleteNaverModal = ({ id }) => {
   const [loading, setLoading] = useState(false);
 
   function closeModal() {
+
     return dispatch({ type: 'SET_MODAL_CLOSED' });
   }
 

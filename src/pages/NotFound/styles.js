@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { BlackTexts } from '@assets/styles/colors'
+import { goUpAndFade } from '@assets/styles/animations'
 
 export const Page = styled.div`
   width: 100vw;
@@ -8,6 +9,7 @@ export const Page = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  animation: ${goUpAndFade} 1s;
 
   h2 {
     display: flex;

@@ -74,8 +74,6 @@ const Naver = () => {
     setLoading(true);
     let res;
 
-    console.log(formData.birthdate, formData.admission_date, '<<<');
-
     try {
       res = await NaversService.addNaver(formData);
       const { data } = res;

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { BigTitle } from '@assets/styles/typography'
+import { goUpAndFade } from '@assets/styles/animations'
 
 export const Header = styled.header`
   display: flex;
@@ -31,6 +32,15 @@ export const NotFound = styled.div`
   text-align: center;
   font-size: 32px;
   font-weight: 600px;
+`
+
+export const AnimatedWrapper = styled.div`
+  animation: ${goUpAndFade} 1s;
+`;
+
+export const PaginationWrapper = styled.div`
+  opacity: ${props => props.isVisible ? '1' : '0'};
+  transition: 1s;
 `
 
 export default Header;

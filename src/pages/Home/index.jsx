@@ -15,7 +15,7 @@ import NaverCard from '@components/organisms/NaverCard'
 
 import NaverDetails from '@components/templates/Modals/NaverDetails'
 
-import { Header, NotFound } from './styles';
+import { Header, NotFound, AnimatedWrapper, PaginationWrapper } from './styles';
 
 SwiperCore.use([Pagination]);
 
@@ -65,7 +65,7 @@ const Home = () => {
       <div>
         {
           NaversState.navers.length ? (
-            <>
+            <AnimatedWrapper>
               <Swiper
                 spaceBetween={30}
                 slidesPerView={4}
@@ -95,10 +95,13 @@ const Home = () => {
                 }
               </Swiper>
               {
-                NaversState.navers.length > 4 &&
-                  <div className="swiper-pagination" />
+                NaversState.navers.length > 4 && (
+                  <PaginationWrapper isVisible={!loading}>
+                    <div className="swiper-pagination" />
+                  </PaginationWrapper>
+                )
               }
-            </>
+            </AnimatedWrapper>
           ) : (
             <NotFound>
               <h2>

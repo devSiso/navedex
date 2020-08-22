@@ -7,6 +7,12 @@ export const Nav = styled.nav`
   width: 100%;
   box-sizing: border-box;
   padding: 32px 24px;
+
+  button {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 `;
 
 export default Nav;
