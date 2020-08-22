@@ -7,7 +7,7 @@
 - [Technologies](#Technologies)
 - [API](#API)
 - [Figma](#figma)
-- [License](#memo-License)
+- [License](#License)
 
 ## Description
 
