@@ -6,7 +6,9 @@
 - [Description](#Description)
 - [Technologies](#Technologies)
 - [API](#API)
-- [Figma](#figma)
+- [Figma](#UI)
+- [TIps](#Tips)
+- [Author](#Author)
 - [License](#License)
 
 ## Description
@@ -58,9 +60,13 @@ Then go to [http://localhost:6060](http://localhost:6060) to see the result.
 
 Get the API Postman collection on this [link](https://www.getpostman.com/collections/e6afe4028c2a1e56e577).
 
-## UI Interface
+## UI
 
 Access the Figma project on this [link](https://www.figma.com/file/II8UDFm2uJFZaD0FOPcinP/Teste-Fornt-End).
+
+## Tips
+
+Konami Code certainly do something.
 
 ## Author
 

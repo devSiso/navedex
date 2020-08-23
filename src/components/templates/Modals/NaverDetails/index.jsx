@@ -1,30 +1,22 @@
-import React, { useEffect, useContext, useState } from 'react'
-import PropTypes from 'prop-types'
+import React, { useEffect, useContext, useState } from 'react';
+import PropTypes from 'prop-types';
 import LoadingOverlay from 'react-loading-overlay';
-import { useHistory, } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 
 import AppContext from '@context/appContext';
 
 import NaversService from '@api/services/navers';
 
-import { getAge, getPreciseDiff } from '@src/utils/date'
+import { getAge, getPreciseDiff } from '@src/utils/date';
 
-import Figure from '@components/atoms/Figure'
-import Button from '@components/molecules/Button'
-import DeleteNaver from '@components/templates/Modals/DeleteNaver'
+import Figure from '@components/atoms/Figure';
+import Button from '@components/molecules/Button';
+import DeleteNaver from '@components/templates/Modals/DeleteNaver';
+import InfoModal from '@components/templates/Modals/InfoModal';
 
-import {
-  DefaultModalContent,
-  Title,
-} from '../styles';
+import { DefaultModalContent, Title } from '../styles';
 
-import {
-  DetailsWrapper,
-  DetailsInfo,
-  CloseContainer,
-  ActionsWrapper
-} from './styles'
-
+import { DetailsWrapper, DetailsInfo, CloseContainer, ActionsWrapper } from './styles';
 
 const NaverDetailsModal = ({ id }) => {
   const { state, dispatch } = useContext(AppContext);
@@ -40,6 +32,14 @@ const NaverDetailsModal = ({ id }) => {
     return dispatch({ type: 'SET_MODAL_OPENED', component: DeleteNaver, props: { id: naver.id } });
   }
 
+  function openErrorModal(status) {
+    return dispatch({
+      type: 'SET_MODAL_OPENED',
+      component: InfoModal,
+      props: { title: 'Erro', text: `Erro ao carregar naver. CODE: ${status}` },
+    });
+  }
+
   async function fetchNaver() {
     setLoading(true);
 
@@ -47,8 +47,9 @@ const NaverDetailsModal = ({ id }) => {
       const { data } = await NaversService.getNaver(id);
       setNaver(data);
     } catch (e) {
+      if (e.response) openErrorModal(e.response.status);
       // eslint-disable-next-line
-      console.error(e)
+      console.error(e);
     } finally {
       setLoading(false);
     }
@@ -79,15 +80,15 @@ const NaverDetailsModal = ({ id }) => {
         styles={{
           overlay: (base) => ({
             ...base,
-            background: 'rgba(255, 255, 255, 1)'
+            background: 'rgba(255, 255, 255, 1)',
           }),
           spinner: (base) => ({
             ...base,
             width: '80px',
             '& svg circle': {
-              stroke: 'rgba(0, 0, 0, 1)'
-            }
-          })
+              stroke: 'rgba(0, 0, 0, 1)',
+            },
+          }),
         }}
       >
         {!loading && (
@@ -96,14 +97,10 @@ const NaverDetailsModal = ({ id }) => {
           </CloseContainer>
         )}
         <DetailsWrapper>
-          {(naver && !loading) && (
+          {naver && !loading && (
             <>
               <div className="figure-wrapper">
-                <Figure
-                  src={naver.url || ''}
-                  alt={`Picture of ${naver.name}`}
-                  insideModal
-                />
+                <Figure src={naver.url || ''} alt={`Picture of ${naver.name}`} insideModal />
               </div>
               <DetailsInfo>
                 <header>
@@ -144,7 +141,7 @@ const NaverDetailsModal = ({ id }) => {
 };
 
 NaverDetailsModal.propTypes = {
-  id: PropTypes.string.isRequired
-}
+  id: PropTypes.string.isRequired,
+};
 
 export default NaverDetailsModal;

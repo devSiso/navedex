@@ -7,7 +7,7 @@ export const LoginPage = styled.div`
   justify-content: center;
   align-items: center;
   width: 100vw;
-  min-height: 100vh;
+  height: calc(100vh - 64px);
 `;
 
 export const FormWrapper = styled.div`

@@ -2,23 +2,16 @@ import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import AppContext from '@context/appContext';
-import NaversContext from '@context/naversContext'
+import NaversContext from '@context/naversContext';
 
-import NaversService from '@api/services/navers'
-import Button from '@components/molecules/Button'
+import NaversService from '@api/services/navers';
+import Button from '@components/molecules/Button';
 
-import SuccessModal from '../Success'
+import InfoModal from '../InfoModal';
 
-import {
-  DefaultModalContent,
-  Title,
-} from '../styles';
+import { DefaultModalContent, Title } from '../styles';
 
-import {
-  Body,
-  ActionsWrapper
-} from './styles'
-
+import { Body, ActionsWrapper } from './styles';
 
 export const DeleteNaverModal = ({ id }) => {
   const { state, dispatch } = useContext(AppContext);
@@ -26,13 +19,25 @@ export const DeleteNaverModal = ({ id }) => {
   const [loading, setLoading] = useState(false);
 
   function closeModal() {
-
     return dispatch({ type: 'SET_MODAL_CLOSED' });
   }
 
   function openSuccessModal() {
     closeModal();
-    return dispatch({ type: 'SET_MODAL_OPENED', component: SuccessModal, props: { title: "Naver excluído", text: "Naver excluído com sucesso!" } });
+    return dispatch({
+      type: 'SET_MODAL_OPENED',
+      component: InfoModal,
+      props: { title: 'Naver excluído', text: 'Naver excluído com sucesso!' },
+    });
+  }
+
+  function openErrorModal(status) {
+    closeModal();
+    return dispatch({
+      type: 'SET_MODAL_OPENED',
+      component: InfoModal,
+      props: { title: 'Erro', text: `Erro ao deletar naver. CODE: ${status}` },
+    });
   }
 
   async function deleteNaver() {
@@ -41,6 +46,7 @@ export const DeleteNaverModal = ({ id }) => {
     try {
       res = await NaversService.deleteNaver(id);
     } catch (e) {
+      if (e.response) openErrorModal(e.response.status);
       // eslint-disable-next-line
       console.error(e);
     } finally {
@@ -72,8 +78,7 @@ export const DeleteNaverModal = ({ id }) => {
 };
 
 DeleteNaverModal.propTypes = {
-  id: PropTypes.string.isRequired
+  id: PropTypes.string.isRequired,
 };
-
 
 export default DeleteNaverModal;

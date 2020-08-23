@@ -1,29 +1,25 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { Link, useParams, useHistory } from "react-router-dom";
+import React, { useState, useEffect, useContext } from 'react';
+import { Link, useParams, useHistory } from 'react-router-dom';
 
-import Page from '@pages/Page'
+import Page from '@pages/Page';
 
-import AppContext from '@context/appContext'
-import NaversContext from '@context/naversContext'
+import AppContext from '@context/appContext';
+import NaversContext from '@context/naversContext';
 
-import NaversService from '@api/services/navers'
+import NaversService from '@api/services/navers';
 
-import Icon from '@components/atoms/Icon'
-import Input from '@components/atoms/Input'
-import Button from '@components/molecules/Button'
-import Form from '@components/organisms/Form'
+import Icon from '@components/atoms/Icon';
+import Input from '@components/atoms/Input';
+import Button from '@components/molecules/Button';
+import Form from '@components/organisms/Form';
 
-import SuccessModal from '@components/templates/Modals/Success'
+import InfoModal from '@components/templates/Modals/InfoModal';
 
-import { convertISOToDate } from '@src/utils/date'
+import { convertISOToDate } from '@src/utils/date';
 
-import rules from './rules'
+import rules from './rules';
 
-import {
-  NaverPageWrapper,
-  Title,
-  ActionWrapper
-} from './styles';
+import { NaverPageWrapper, Title, ActionWrapper } from './styles';
 
 const Naver = () => {
   const { dispatch: appDispatch } = useContext(AppContext);
@@ -49,14 +45,20 @@ const Naver = () => {
         project: data.project,
         url: data.url,
       });
-      setPageTitle("Editar naver");
+      setPageTitle('Editar naver');
     } catch (e) {
+      if (e.response)
+        appDispatch({
+          type: 'SET_MODAL_OPENED',
+          component: InfoModal,
+          props: { title: 'Erro', text: `Erro ao carregar naver. CODE: ${e.response.status}` },
+        });
       // eslint-disable-next-line
-      console.error(e)
+      console.error(e);
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   const cleanFields = () => {
     setNaverData({
@@ -65,10 +67,10 @@ const Naver = () => {
       admission_date: '',
       birthdate: '',
       project: '',
-      url: ''
+      url: '',
     });
-    setPageTitle("Adicionar naver");
-  }
+    setPageTitle('Adicionar naver');
+  };
 
   const addNewNaver = async (formData) => {
     setLoading(true);
@@ -77,17 +79,27 @@ const Naver = () => {
     try {
       res = await NaversService.addNaver(formData);
       const { data } = res;
-      naversDispatch({ type: 'ADD_NEW_NAVER', data })
+      naversDispatch({ type: 'ADD_NEW_NAVER', data });
     } catch (e) {
+      if (e.response)
+        appDispatch({
+          type: 'SET_MODAL_OPENED',
+          component: InfoModal,
+          props: { title: 'Erro', text: `Erro ao adicionar naver. CODE: ${e.response.status}` },
+        });
       // eslint-disable-next-line
       console.error(e);
     } finally {
       if (res.status === 200) {
-        appDispatch({ type: 'SET_MODAL_OPENED', component: SuccessModal, props: { title: 'Naver criado', text: 'Naver criado com sucesso!' } });
+        appDispatch({
+          type: 'SET_MODAL_OPENED',
+          component: InfoModal,
+          props: { title: 'Naver criado', text: 'Naver criado com sucesso!' },
+        });
       }
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const updateNaver = async (formData) => {
     setLoading(true);
@@ -96,16 +108,26 @@ const Naver = () => {
     try {
       res = await NaversService.updateNaver(naverID, formData);
     } catch (e) {
+      if (e.response)
+        appDispatch({
+          type: 'SET_MODAL_OPENED',
+          component: InfoModal,
+          props: { title: 'Erro', text: `Erro ao editar naver. CODE: ${e.response.status}` },
+        });
       // eslint-disable-next-line
       console.error(e);
     } finally {
       if (res.status === 200) {
-        appDispatch({ type: 'SET_MODAL_OPENED', component: SuccessModal, props: { title: 'Naver atualizado', text: 'Naver atualizado com sucesso!' } });
+        appDispatch({
+          type: 'SET_MODAL_OPENED',
+          component: InfoModal,
+          props: { title: 'Naver atualizado', text: 'Naver atualizado com sucesso!' },
+        });
         history.push('/home');
       }
       setLoading(false);
     }
-  }
+  };
 
   const handleSubmit = async (formData) => {
     if (!naverID) {
@@ -113,7 +135,7 @@ const Naver = () => {
     } else {
       await updateNaver(formData);
     }
-  }
+  };
 
   useEffect(() => {
     if (naverID) {
@@ -132,9 +154,7 @@ const Naver = () => {
               <Link to="/home">
                 <Icon name="arrow" />
               </Link>
-              <Title>
-                {pageTitle}
-              </Title>
+              <Title>{pageTitle}</Title>
             </header>
           )}
           <div className="form-wrapper">
@@ -190,8 +210,7 @@ const Naver = () => {
                   placeholder="URL da foto do Naver"
                   title="URL da foto do Naver"
                 />
-                <div />
-                {/* FIX IT */}
+                <br />
                 <ActionWrapper>
                   <Button type="submit" value="Salvar" title="Salvar" loading={loading} />
                 </ActionWrapper>
@@ -201,7 +220,7 @@ const Naver = () => {
         </div>
       </NaverPageWrapper>
     </Page>
-  )
-}
+  );
+};
 
-export default Naver
+export default Naver;

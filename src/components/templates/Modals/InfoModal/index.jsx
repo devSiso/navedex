@@ -1,21 +1,14 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
-import AppContext from '@context/appContext'
-import Button from '@components/molecules/Button'
+import AppContext from '@context/appContext';
+import Button from '@components/molecules/Button';
 
-import {
-  DefaultModalContent,
-  Title,
-} from '../styles';
+import { DefaultModalContent, Title } from '../styles';
 
-import {
-  CloseContainer,
-  Body
-} from './styles'
+import { CloseContainer, Body } from './styles';
 
-
-const SuccessModal = ({ isOpened, title, text }) => {
+const InfoModal = ({ isOpened, title, text }) => {
   const { dispatch } = useContext(AppContext);
 
   function closeModal() {
@@ -33,16 +26,16 @@ const SuccessModal = ({ isOpened, title, text }) => {
       </Body>
     </DefaultModalContent>
   );
-}
+};
 
-SuccessModal.propTypes = {
+InfoModal.propTypes = {
   isOpened: PropTypes.bool,
   title: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired
-}
+  text: PropTypes.string.isRequired,
+};
 
-SuccessModal.defaultProps = {
+InfoModal.defaultProps = {
   isOpened: false,
-}
+};
 
-export default SuccessModal;
+export default InfoModal;
